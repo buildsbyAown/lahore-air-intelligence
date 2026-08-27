@@ -28,3 +28,13 @@ Two kinds of evidence exist for Lahore: **emission inventories** (estimate how m
 
 - **Stone et al. (2010), *Atmospheric Environment*** [4] — the classic Lahore study (Jan 2007 – Jan 2008). Fine particles were dominated by carbon-containing material (61%). For primary organic carbon in PM2.5: **non-catalysed motor vehicles 53%**, biomass burning 10%, diesel/residual fuel oil 6%, coal 1.9%. A large unexplained share (27%) correlated with coal markers, and the authors suggest **brick kilns** (which burn coal and low-quality fuels) as the most probable source. Secondary organic aerosol was important in winter fog episodes.
 - This is old data (2007). **A modern source-apportionment study for Lahore is a clear gap.**
+
+### 2.3 Brick kilns
+
+- Conventional fixed-chimney Bull's trench kilns burn low-quality coal with rice husk, bagasse and wood. A life-cycle study from UET Lahore [9] estimated that converting to **induced-draught zigzag kilns** would cut PM2.5 emissions by about **35%**, CO2 by about 30% and black carbon substantially. This is one of the few concrete, already-proven mitigation measures.
+
+### 2.4 Crop-residue burning and regional transport
+
+- The rice–wheat cycle leaves farmers only 10–20 days between harvesting rice and sowing wheat, so stubble is burned in Indian and Pakistani Punjab in October–November [10].
+- Modelling across the Indo-Gangetic Plain shows that **biomass burning in the north-west plain plays a crucial role in the post-monsoon (Oct–Nov) peak**, while in mid-winter the problem shifts to stagnant weather trapping local emissions [11].
+- For the record November 2024 episode, air-mass back-trajectories passed over the stubble-burning region, and fire activity shifted from afternoon to evening [10] — which matters because polar-orbiting satellites (MODIS) pass in the late morning and early afternoon and can miss evening fires.
