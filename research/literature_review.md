@@ -38,3 +38,12 @@ Two kinds of evidence exist for Lahore: **emission inventories** (estimate how m
 - The rice–wheat cycle leaves farmers only 10–20 days between harvesting rice and sowing wheat, so stubble is burned in Indian and Pakistani Punjab in October–November [10].
 - Modelling across the Indo-Gangetic Plain shows that **biomass burning in the north-west plain plays a crucial role in the post-monsoon (Oct–Nov) peak**, while in mid-winter the problem shifts to stagnant weather trapping local emissions [11].
 - For the record November 2024 episode, air-mass back-trajectories passed over the stubble-burning region, and fire activity shifted from afternoon to evening [10] — which matters because polar-orbiting satellites (MODIS) pass in the late morning and early afternoon and can miss evening fires.
+
+## 3. Why does winter make it so much worse? (Meteorology and geography)
+
+This is the part of the problem my own data analysis focuses on.
+
+- **Shallow boundary layer / temperature inversion.** In winter the ground cools quickly at night, creating a temperature inversion: a warm layer sits on top of cold air near the ground and acts like a lid. Ceilometer (LIDAR) measurements in Lahore from Oct 2019 to Mar 2021 found the **planetary boundary layer was usually below 500 m in December**, and **PM2.5 rose when the boundary layer dropped** [12]. Older work cites night-time winter mixing heights of about 250 m [5].
+- **Weak winds and stagnation.** Across the Indo-Gangetic Plain, the move into winter brings lower temperatures, a much shallower boundary layer and weaker winds; the **ventilation coefficient falls by a factor of about 4** [11]. The Himalaya along the north-east edge of the plain forms a corridor that helps aerosols accumulate over the region [11].
+- **The November 2024 event.** Lahore recorded a daily PM2.5 of **621 µg/m³**, the highest in five years. A 2026 study links it to a prolonged high-pressure system (anticyclonic stagnation), weak winds, low boundary layer, higher humidity and fire activity — i.e. **many sources, trapped by weather** [10].
+- **Fog and humidity** help turn gases into particles (secondary aerosol) during winter [4, 5].
