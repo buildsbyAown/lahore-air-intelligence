@@ -47,3 +47,8 @@ This is the part of the problem my own data analysis focuses on.
 - **Weak winds and stagnation.** Across the Indo-Gangetic Plain, the move into winter brings lower temperatures, a much shallower boundary layer and weaker winds; the **ventilation coefficient falls by a factor of about 4** [11]. The Himalaya along the north-east edge of the plain forms a corridor that helps aerosols accumulate over the region [11].
 - **The November 2024 event.** Lahore recorded a daily PM2.5 of **621 µg/m³**, the highest in five years. A 2026 study links it to a prolonged high-pressure system (anticyclonic stagnation), weak winds, low boundary layer, higher humidity and fire activity — i.e. **many sources, trapped by weather** [10].
 - **Fog and humidity** help turn gases into particles (secondary aerosol) during winter [4, 5].
+
+## 4. Can computer science help? Previous forecasting work
+
+- A 2026 study from the University of the Punjab [13] combined satellite data (MODIS aerosol optical depth, Sentinel-5P gases), ERA5 weather and ground measurements to predict daily PM2.5 in Lahore with Random Forest, XGBoost, LightGBM and CatBoost (trained on 2019–2023, tested on 2024). Random Forest reached **R² = 0.77, RMSE = 24.75 µg/m³**, and an ensemble did slightly better. Surface pressure, temperature, CO and NO2 were the most important inputs. The authors note that Lahore "still lacks reliable short-term PM2.5 forecasting systems."
+- The meteorology papers above [10, 11] conclude that **emission controls should be guided by weather forecasts** — which is exactly what a short-term forecasting / early-warning system can support.
