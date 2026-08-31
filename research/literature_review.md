@@ -52,3 +52,30 @@ This is the part of the problem my own data analysis focuses on.
 
 - A 2026 study from the University of the Punjab [13] combined satellite data (MODIS aerosol optical depth, Sentinel-5P gases), ERA5 weather and ground measurements to predict daily PM2.5 in Lahore with Random Forest, XGBoost, LightGBM and CatBoost (trained on 2019–2023, tested on 2024). Random Forest reached **R² = 0.77, RMSE = 24.75 µg/m³**, and an ensemble did slightly better. Surface pressure, temperature, CO and NO2 were the most important inputs. The authors note that Lahore "still lacks reliable short-term PM2.5 forecasting systems."
 - The meteorology papers above [10, 11] conclude that **emission controls should be guided by weather forecasts** — which is exactly what a short-term forecasting / early-warning system can support.
+
+## 5. What this means for my project
+
+1. **The research gap I can realistically work on is forecasting and early warning**, not source attribution. Source shares need inventories or chemical measurements, which I do not have.
+2. The literature strongly suggests that **meteorology (boundary layer height, wind, stagnation) decides how bad a given day gets**, while emissions from traffic, kilns, industry, crop and waste burning provide the pollution. My first analysis tests the meteorology part with real data.
+3. **Data is a real limitation**: one reference monitor, a few low-cost sensors, and models that underestimate Lahore. Calibrating low-cost sensors and modelled data is a useful CS/ML contribution in itself.
+4. Headline numbers like "83% transport" need careful reading: they depend on which pollutants are counted.
+
+---
+
+## References
+
+1. IQAir. *5 Most polluted major cities in the world in 2024* (based on the 2024 World Air Quality Report). https://www.iqair.com/newsroom/5-most-polluted-major-cities-in-world-2024 — full report: https://mail.e3.iqair.com/hubfs/WAQR/2024_World_Air_Quality_Report.pdf
+2. World Health Organization (2021). *WHO Global Air Quality Guidelines: Particulate Matter (PM2.5 and PM10), Ozone, Nitrogen Dioxide, Sulfur Dioxide and Carbon Monoxide.* https://iris.who.int/bitstream/handle/10665/345329/9789240034228-eng.pdf
+3. Energy Policy Institute at the University of Chicago (EPIC). *Air Quality Life Index — Pakistan Fact Sheet (2025, 2023 data).* https://aqli.epic.uchicago.edu/files/Pakistan%20FactSheet_2025.pdf
+4. Stone, E., Schauer, J., Quraishi, T. A., & Mahmood, A. (2010). Chemical characterization and source apportionment of fine and coarse particulate matter in Lahore, Pakistan. *Atmospheric Environment*, 44(8), 1062–1070. https://doi.org/10.1016/j.atmosenv.2009.12.015
+5. Rasheed, A., et al. (2015). Measurement and analysis of fine particulate matter (PM2.5) in urban areas of Pakistan. *Aerosol and Air Quality Research*, 15, 426–439. https://airqualityresearch.wordpress.ncsu.edu/files/2019/08/6_AAQR-14-10-OA-0269_426-439.pdf
+6. World Bank (2022). *Striving for Clean Air: Air Pollution and Public Health in South Asia.* Press release: https://www.worldbank.org/en/news/press-release/2022/12/14/urgent-action-needed-in-south-asia-to-curb-deadly-air-pollution — report page: https://www.worldbank.org/en/region/sar/publication/striving-for-clean-air
+7. The Urban Unit, Planning & Development Board, Government of Punjab (2023). *Sectoral Emission Inventory of Lahore.* https://urbanunit.gov.pk/Download/publications/Files/8/2023/Emission%20Inventory%20of%20Lahore%202023.pdf
+8. FAO (Food and Agriculture Organization). *Remote sensing for space-time mapping of smog in Punjab and identification of the underlying causes using GIS (R-SMOG).* https://openknowledge.fao.org/server/api/core/bitstreams/ede8e081-5a05-4722-86e7-359e4be3dd6b/content — news release: https://www.fao.org/pakistan/news/detail-events/en/c/1179183/
+9. Bashir, Z., Amjad, M., Raza, S. F., Ahmad, S., Abdollahian, M., & Farooq, M. (2023). Investigating the impact of shifting the brick kiln industry from conventional to zigzag technology for a sustainable environment. *Sustainability*, 15(10), 8291. https://doi.org/10.3390/su15108291
+10. Dahal, S., Sharma, N., Dey, S., Bokhari, S. A. A., Boomsma, J., …, & Holmes, H. A. (2026). Meteorological modulation of ambient air quality in Delhi and Lahore during the November 2024 haze event. *Scientific Reports*. https://www.nature.com/articles/s41598-026-63281-w
+11. Ojha, N., Sharma, A., Kumar, M., Girach, I., Ansari, T. U., Sharma, S. K., Singh, N., Pozzer, A., & Gunthe, S. S. (2020). On the widespread enhancement in fine particulate matter across the Indo-Gangetic Plain towards winter. *Scientific Reports*, 10. https://www.nature.com/articles/s41598-020-62710-8
+12. Shahid, I., & Shahzad, M. I. (2023). Impact of planetary boundary layer in dense haze/smog event over South Asian mega city; Lahore, Pakistan. *EGU General Assembly 2023*, EGU23-11384 (conference abstract). https://doi.org/10.5194/egusphere-egu23-11384
+13. Haseeb, M., Tahir, Z., Mehmood, S. A., Arif, H., Kousar, S., Ghafoor, S., & Mehmood, K. (2026). Ensemble artificial intelligence fusing satellite, reanalysis, and ground observations for improved PM2.5 prediction. *Atmosphere*, 17(4), 411. https://www.mdpi.com/2073-4433/17/4/411
+
+*Data sources used in the analysis are listed separately in `data/README.md`.*
