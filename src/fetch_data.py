@@ -1,7 +1,8 @@
 """Download raw data used in the Lahore Air Intelligence project.
 
 Sources (all open, no API key needed):
-  1. OpenAQ public S3 archive  - measured PM2.5 (US Consulate Lahore BAM monitor, location 8664)
+  1. OpenAQ public S3 archive  - measured PM2.5 (US Consulate Lahore BAM monitor, location 8664;
+                                 Clarity low-cost sensor, location 1894641)
 
 Run:  python src/fetch_data.py      (takes a few minutes; re-running skips files that exist)
 """
@@ -17,7 +18,8 @@ os.makedirs(RAW, exist_ok=True)
 LAT, LON = 31.5204, 74.3587          # Lahore city centre
 START, END = "2019-01-01", "2026-11-15"
 S3 = "https://openaq-data-archive.s3.amazonaws.com"
-OPENAQ_LOCATIONS = {8664: "openaq_us_consulate_lahore_hourly.csv"}
+OPENAQ_LOCATIONS = {8664: "openaq_us_consulate_lahore_hourly.csv",
+                    1894641: "openaq_clarity_lahore_hourly.csv"}
 
 def s3_keys(location_id):
     keys, token = [], None
