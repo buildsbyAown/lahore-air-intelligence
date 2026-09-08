@@ -3,6 +3,7 @@
 Sources (all open, no API key needed):
   1. OpenAQ public S3 archive  - measured PM2.5 (US Consulate Lahore BAM monitor, location 8664;
                                  Clarity low-cost sensor, location 1894641)
+  2. Open-Meteo Historical Weather API (ERA5 reanalysis) - hourly weather incl. boundary layer height
 
 Run:  python src/fetch_data.py      (takes a few minutes; re-running skips files that exist)
 """
@@ -50,7 +51,22 @@ def fetch_openaq(location_id, fname):
     df.to_csv(out, index=False)
     print("  saved", out, len(df), "rows")
 
+def fetch_weather():
+    out = os.path.join(RAW, "openmeteo_era5_weather_hourly.csv")
+    if os.path.exists(out):
+        return
+    vars_ = ("temperature_2m,relative_humidity_2m,dew_point_2m,precipitation,surface_pressure,"
+             "wind_speed_10m,wind_direction_10m,boundary_layer_height,cloud_cover")
+    r = requests.get("https://archive-api.open-meteo.com/v1/archive", timeout=300, params=dict(
+        latitude=LAT, longitude=LON, start_date=START, end_date=END, hourly=vars_,
+        timezone="Asia/Karachi"))
+    r.raise_for_status()
+    df = pd.DataFrame(r.json()["hourly"])
+    df.to_csv(out, index=False)
+    print("  saved", out, len(df), "rows")
+
 if __name__ == "__main__":
     for lid, fn in OPENAQ_LOCATIONS.items():
         fetch_openaq(lid, fn)
+    fetch_weather()
     print("done")
