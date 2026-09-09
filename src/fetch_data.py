@@ -4,6 +4,7 @@ Sources (all open, no API key needed):
   1. OpenAQ public S3 archive  - measured PM2.5 (US Consulate Lahore BAM monitor, location 8664;
                                  Clarity low-cost sensor, location 1894641)
   2. Open-Meteo Historical Weather API (ERA5 reanalysis) - hourly weather incl. boundary layer height
+  3. Open-Meteo Air Quality API (CAMS global model)       - modelled PM2.5 / PM10 for Lahore
 
 Run:  python src/fetch_data.py      (takes a few minutes; re-running skips files that exist)
 """
@@ -65,8 +66,24 @@ def fetch_weather():
     df.to_csv(out, index=False)
     print("  saved", out, len(df), "rows")
 
+def fetch_cams():
+    out = os.path.join(RAW, "openmeteo_cams_airquality_hourly.csv")
+    if os.path.exists(out):
+        return
+    frames = []
+    for y0, y1 in [("2022-08-01", "2023-12-31"), ("2024-01-01", "2025-06-30"), ("2025-07-01", END)]:
+        r = requests.get("https://air-quality-api.open-meteo.com/v1/air-quality", timeout=300, params=dict(
+            latitude=LAT, longitude=LON, start_date=y0, end_date=y1,
+            hourly="pm2_5,pm10,carbon_monoxide,nitrogen_dioxide,dust", timezone="Asia/Karachi"))
+        r.raise_for_status()
+        frames.append(pd.DataFrame(r.json()["hourly"]))
+    df = pd.concat(frames, ignore_index=True)
+    df.to_csv(out, index=False)
+    print("  saved", out, len(df), "rows")
+
 if __name__ == "__main__":
     for lid, fn in OPENAQ_LOCATIONS.items():
         fetch_openaq(lid, fn)
     fetch_weather()
+    fetch_cams()
     print("done")
