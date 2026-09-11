@@ -1,10 +1,11 @@
-"""Download raw data used in the Lahore Air Intelligence project.
+"""Download all raw data used in the Lahore Air Intelligence project.
 
 Sources (all open, no API key needed):
   1. OpenAQ public S3 archive  - measured PM2.5 (US Consulate Lahore BAM monitor, location 8664;
                                  Clarity low-cost sensor, location 1894641)
   2. Open-Meteo Historical Weather API (ERA5 reanalysis) - hourly weather incl. boundary layer height
   3. Open-Meteo Air Quality API (CAMS global model)       - modelled PM2.5 / PM10 for Lahore
+  4. NASA FIRMS country archives (MODIS active fires)      - fire detections, filtered to the Punjab region
 
 Run:  python src/fetch_data.py      (takes a few minutes; re-running skips files that exist)
 """
@@ -22,6 +23,9 @@ START, END = "2019-01-01", "2026-11-15"
 S3 = "https://openaq-data-archive.s3.amazonaws.com"
 OPENAQ_LOCATIONS = {8664: "openaq_us_consulate_lahore_hourly.csv",
                     1894641: "openaq_clarity_lahore_hourly.csv"}
+# Punjab region box (Pakistani + Indian Punjab) used to count fires upwind of Lahore
+FIRE_BBOX = dict(lat_min=29.5, lat_max=32.6, lon_min=72.0, lon_max=76.9)
+
 
 def s3_keys(location_id):
     keys, token = [], None
@@ -52,6 +56,7 @@ def fetch_openaq(location_id, fname):
     df.to_csv(out, index=False)
     print("  saved", out, len(df), "rows")
 
+
 def fetch_weather():
     out = os.path.join(RAW, "openmeteo_era5_weather_hourly.csv")
     if os.path.exists(out):
@@ -65,6 +70,7 @@ def fetch_weather():
     df = pd.DataFrame(r.json()["hourly"])
     df.to_csv(out, index=False)
     print("  saved", out, len(df), "rows")
+
 
 def fetch_cams():
     out = os.path.join(RAW, "openmeteo_cams_airquality_hourly.csv")
@@ -81,9 +87,33 @@ def fetch_cams():
     df.to_csv(out, index=False)
     print("  saved", out, len(df), "rows")
 
+
+def fetch_fires():
+    out = os.path.join(RAW, "firms_modis_punjab_fires.csv")
+    if os.path.exists(out):
+        return
+    frames = []
+    for year in range(2019, 2026):
+        for country in ("Pakistan", "India"):
+            url = f"https://firms.modaps.eosdis.nasa.gov/data/country/modis/{year}/modis_{year}_{country}.csv"
+            r = requests.get(url, timeout=300)
+            if r.status_code != 200:
+                print("  missing", url); continue
+            df = pd.read_csv(io.StringIO(r.text))
+            b = FIRE_BBOX
+            df = df[df.latitude.between(b["lat_min"], b["lat_max"]) & df.longitude.between(b["lon_min"], b["lon_max"])]
+            df["country"] = country
+            frames.append(df)
+            print(f"  FIRMS {country} {year}: {len(df)} fires in bbox")
+    df = pd.concat(frames, ignore_index=True)
+    df.to_csv(out, index=False)
+    print("  saved", out, len(df), "rows")
+
+
 if __name__ == "__main__":
     for lid, fn in OPENAQ_LOCATIONS.items():
         fetch_openaq(lid, fn)
     fetch_weather()
     fetch_cams()
+    fetch_fires()
     print("done")
