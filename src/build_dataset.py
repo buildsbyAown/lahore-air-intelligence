@@ -26,6 +26,16 @@ def consulate_pm25():
     d.set_index("t")["value"].rename("pm25").to_csv(os.path.join(OUT, "us_consulate_pm25_hourly_clean.csv"))
     g = d.groupby(d.t.dt.date)["value"].agg(["mean", "count"])
     daily = g.loc[g["count"] >= 18, "mean"]          # need >=75% of hours for a valid daily mean
+    # QC: implausibly clean "winter" runs (sensor fault). In Oct-Mar, drop runs of >=3 consecutive
+    # days whose mean is < 15 µg/m³ (this removes 1-10 Feb 2020, ~8 µg/m³ during peak smog season).
+    s = pd.Series(daily.values, index=pd.to_datetime(daily.index))
+    low = (s < 15) & s.index.month.isin([10, 11, 12, 1, 2, 3])
+    run_id = (low != low.shift()).cumsum()
+    run_len = low.groupby(run_id).transform("sum")
+    bad = low & (run_len >= 3)
+    if bad.any():
+        print("  QC removed suspect days:", [d.date().isoformat() for d in s.index[bad]])
+    daily = daily[~bad.values]
     print(f"US Consulate: {n_raw} raw hours -> {len(d)} valid hours -> {len(daily)} valid days")
     return daily.rename("pm25_consulate"), g["count"].rename("consulate_valid_hours")
 
