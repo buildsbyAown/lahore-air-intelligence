@@ -39,6 +39,18 @@ def consulate_pm25():
     print(f"US Consulate: {n_raw} raw hours -> {len(d)} valid hours -> {len(daily)} valid days")
     return daily.rename("pm25_consulate"), g["count"].rename("consulate_valid_hours")
 
+def clarity_pm25():
+    d = pd.read_csv(os.path.join(RAW, "openaq_clarity_lahore_hourly.csv"))
+    d = d[d.parameter == "pm25"].copy()
+    d["t"] = local_dates(d.datetime)
+    d = d[(d.value > 0) & (d.value < 1000)]
+    hourly = d.set_index("t")["value"].resample("1h").mean().dropna()
+    g = hourly.groupby(hourly.index.date).agg(["mean", "count"])
+    daily = g.loc[g["count"] >= 18, "mean"]
+    print(f"Clarity sensor: {len(daily)} valid days")
+    return daily.rename("pm25_clarity_sensor")
+
 if __name__ == "__main__":
     cons, cons_hours = consulate_pm25()
-    print(len(cons), "valid consulate days")
+    clarity = clarity_pm25()
+    print("consulate", len(cons), "clarity", len(clarity))
