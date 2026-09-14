@@ -61,8 +61,36 @@ def cams():
                                  "carbon_monoxide": "co_cams_model", "nitrogen_dioxide": "no2_cams_model",
                                  "dust": "dust_cams_model"})
 
+def weather():
+    w = pd.read_csv(os.path.join(RAW, "openmeteo_era5_weather_hourly.csv"), parse_dates=["time"])
+    w["date"] = w.time.dt.date
+    rad = np.deg2rad(w.wind_direction_10m)
+    w["u"] = -w.wind_speed_10m * np.sin(rad)
+    w["v"] = -w.wind_speed_10m * np.cos(rad)
+    night = w[w.time.dt.hour.isin([0, 1, 2, 3, 4, 5, 22, 23])]
+    g = w.groupby("date")
+    daily = pd.DataFrame({
+        "temp_mean_c": g.temperature_2m.mean(),
+        "temp_min_c": g.temperature_2m.min(),
+        "temp_max_c": g.temperature_2m.max(),
+        "rh_mean_pct": g.relative_humidity_2m.mean(),
+        "dewpoint_mean_c": g.dew_point_2m.mean(),
+        "precip_mm": g.precipitation.sum(),
+        "pressure_mean_hpa": g.surface_pressure.mean(),
+        "wind_speed_mean_kmh": g.wind_speed_10m.mean(),
+        "cloud_cover_mean_pct": g.cloud_cover.mean(),
+        "blh_mean_m": g.boundary_layer_height.mean(),
+        "blh_max_m": g.boundary_layer_height.max(),
+        "blh_night_mean_m": night.groupby("date").boundary_layer_height.mean(),
+    })
+    u, v = g.u.mean(), g.v.mean()
+    daily["wind_dir_vector_deg"] = (np.rad2deg(np.arctan2(-u, -v)) + 360) % 360
+    daily["temp_range_c"] = daily.temp_max_c - daily.temp_min_c
+    return daily
+
 if __name__ == "__main__":
     cons, cons_hours = consulate_pm25()
     clarity = clarity_pm25()
     c = cams()
-    print("consulate", len(cons), "clarity", len(clarity), "cams", len(c))
+    w = weather()
+    print("consulate", len(cons), "clarity", len(clarity), "cams", len(c), "weather", len(w))
