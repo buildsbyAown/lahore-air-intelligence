@@ -50,7 +50,19 @@ def clarity_pm25():
     print(f"Clarity sensor: {len(daily)} valid days")
     return daily.rename("pm25_clarity_sensor")
 
+def cams():
+    d = pd.read_csv(os.path.join(RAW, "openmeteo_cams_airquality_hourly.csv"), parse_dates=["time"])
+    g = d.groupby(d.time.dt.date)
+    daily = g[["pm2_5", "pm10", "carbon_monoxide", "nitrogen_dioxide", "dust"]].mean()
+    daily = daily[g["pm2_5"].count() >= 18]
+    # QC: CAMS shows a glitch of <1 µg/m³ on 14-15 Dec 2022 (peak smog season) -> treat as missing
+    daily = daily[daily["pm2_5"] >= 5]
+    return daily.rename(columns={"pm2_5": "pm25_cams_model", "pm10": "pm10_cams_model",
+                                 "carbon_monoxide": "co_cams_model", "nitrogen_dioxide": "no2_cams_model",
+                                 "dust": "dust_cams_model"})
+
 if __name__ == "__main__":
     cons, cons_hours = consulate_pm25()
     clarity = clarity_pm25()
-    print("consulate", len(cons), "clarity", len(clarity))
+    c = cams()
+    print("consulate", len(cons), "clarity", len(clarity), "cams", len(c))
