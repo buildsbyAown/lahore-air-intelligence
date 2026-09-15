@@ -17,6 +17,7 @@ def local_dates(series):
     # OpenAQ datetimes carry a +05:00 offset; convert to Lahore local time
     return pd.to_datetime(series, utc=True).dt.tz_convert("Asia/Karachi")
 
+
 def consulate_pm25():
     d = pd.read_csv(os.path.join(RAW, "openaq_us_consulate_lahore_hourly.csv"))
     d["t"] = local_dates(d.datetime)
@@ -39,6 +40,7 @@ def consulate_pm25():
     print(f"US Consulate: {n_raw} raw hours -> {len(d)} valid hours -> {len(daily)} valid days")
     return daily.rename("pm25_consulate"), g["count"].rename("consulate_valid_hours")
 
+
 def clarity_pm25():
     d = pd.read_csv(os.path.join(RAW, "openaq_clarity_lahore_hourly.csv"))
     d = d[d.parameter == "pm25"].copy()
@@ -50,6 +52,7 @@ def clarity_pm25():
     print(f"Clarity sensor: {len(daily)} valid days")
     return daily.rename("pm25_clarity_sensor")
 
+
 def cams():
     d = pd.read_csv(os.path.join(RAW, "openmeteo_cams_airquality_hourly.csv"), parse_dates=["time"])
     g = d.groupby(d.time.dt.date)
@@ -60,6 +63,7 @@ def cams():
     return daily.rename(columns={"pm2_5": "pm25_cams_model", "pm10": "pm10_cams_model",
                                  "carbon_monoxide": "co_cams_model", "nitrogen_dioxide": "no2_cams_model",
                                  "dust": "dust_cams_model"})
+
 
 def weather():
     w = pd.read_csv(os.path.join(RAW, "openmeteo_era5_weather_hourly.csv"), parse_dates=["time"])
@@ -90,9 +94,25 @@ def weather():
     daily.loc[g.boundary_layer_height.count() < 18, ["blh_mean_m", "blh_max_m", "blh_night_mean_m"]] = np.nan
     return daily
 
+
+def fires():
+    f = pd.read_csv(os.path.join(RAW, "firms_modis_punjab_fires.csv"), parse_dates=["acq_date"])
+    f = f[(f.type == 0) & (f.confidence >= 30)]       # presumed vegetation fires, nominal+ confidence
+    daily = f.groupby([f.acq_date.dt.date, "country"]).size().unstack(fill_value=0)
+    daily = daily.rename(columns={"India": "fires_indian_punjab_region", "Pakistan": "fires_pakistani_punjab_region"})
+    daily["fires_punjab_region_total"] = daily.sum(axis=1)
+    return daily
+
+
 if __name__ == "__main__":
+    idx = pd.Index(pd.date_range(START, END, freq="D").date, name="date")
     cons, cons_hours = consulate_pm25()
-    clarity = clarity_pm25()
-    c = cams()
-    w = weather()
-    print("consulate", len(cons), "clarity", len(clarity), "cams", len(c), "weather", len(w))
+    df = pd.DataFrame(index=idx)
+    df = df.join(cons).join(clarity_pm25()).join(cams()).join(weather()).join(fires())
+    fire_cols = [c for c in df.columns if c.startswith("fires_")]
+    last_fire_day = pd.Timestamp("2025-12-31").date()
+    df.loc[df.index <= last_fire_day, fire_cols] = df.loc[df.index <= last_fire_day, fire_cols].fillna(0)
+    df = df.round(2)
+    df.to_csv(os.path.join(OUT, "lahore_daily_merged.csv"))
+    print(df.shape)
+    print(df.notna().sum().to_string())
