@@ -86,6 +86,8 @@ def weather():
     u, v = g.u.mean(), g.v.mean()
     daily["wind_dir_vector_deg"] = (np.rad2deg(np.arctan2(-u, -v)) + 360) % 360
     daily["temp_range_c"] = daily.temp_max_c - daily.temp_min_c
+    # BLH is missing for Jan-Jun 2024 in the Open-Meteo archive -> keep NaN, do not fill
+    daily.loc[g.boundary_layer_height.count() < 18, ["blh_mean_m", "blh_max_m", "blh_night_mean_m"]] = np.nan
     return daily
 
 if __name__ == "__main__":
