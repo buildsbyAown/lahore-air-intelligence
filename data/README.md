@@ -34,3 +34,20 @@ Downloaded on 18 November 2026. All dates in the processed files are **local Lah
   - weather: `temp_mean_c`, `temp_min_c`, `temp_max_c`, `temp_range_c`, `rh_mean_pct`, `dewpoint_mean_c`, `precip_mm` (daily total), `pressure_mean_hpa`, `wind_speed_mean_kmh`, `wind_dir_vector_deg` (vector-averaged direction the wind blows *from*), `cloud_cover_mean_pct`, `blh_mean_m`, `blh_max_m`, `blh_night_mean_m` (mean boundary layer height 22:00–05:00)
   - fires: `fires_pakistani_punjab_region`, `fires_indian_punjab_region`, `fires_punjab_region_total` (daily counts; empty after 2025)
 - `us_consulate_pm25_hourly_clean.csv` – cleaned hourly PM2.5 from the consulate monitor (used for the hour-of-day analysis).
+
+## Cleaning rules
+
+1. Consulate monitor: removed the `-999` missing-value flag and any value ≤ 0 or ≥ 1000 µg/m³; dropped duplicate timestamps. 44,516 raw hourly rows → 36,384 valid hours.
+2. A daily mean is only kept if at least **18 of 24 hours** (75 %) are valid (consulate, Clarity, CAMS).
+3. Sensor-fault check: in Oct–Mar, runs of ≥ 3 consecutive days with a daily mean below 15 µg/m³ were removed. This removed 1–10 February 2020, when the monitor reported ~8 µg/m³ in the middle of smog season, which is not physically plausible for Lahore. Result: **1,456 valid days**.
+4. CAMS: two days (14–15 Dec 2022) with PM2.5 < 1 µg/m³ in peak smog season were treated as a model glitch and removed.
+5. Clarity sensor: readings are irregular (every few minutes to hourly); averaged to hourly first, then to daily (≥ 18 hours).
+6. Fires: kept only `type = 0` (presumed vegetation fire) with confidence ≥ 30. Days with no detections are counted as 0 for 2019–2025.
+
+## Caveats (please read before re-using)
+
+- **One reference monitor for a city of ~14 million people.** The consulate monitor tells us about one location. Spatial differences inside Lahore are not captured.
+- **Uneven coverage.** The monitor has gaps (e.g. most of summer 2022) and stops in early 2025. Calendar-year averages are therefore biased by which months are present; I compare winters (Nov–Jan) instead.
+- **CAMS underestimates Lahore PM2.5 by about half** (mean ratio 0.54 on 617 overlapping days) even though it follows the ups and downs well (r = 0.82). Do not use CAMS levels as if they were measurements without calibration.
+- **The low-cost sensor reads lower than the reference monitor on high-pollution days** (mean ratio 0.75 on 290 overlapping days, r = 0.98). It needs calibration before it can replace the monitor.
+- **Weather correlations are not source attribution.** These data can show *when* pollution builds up; they cannot say *which* emission source is responsible.
