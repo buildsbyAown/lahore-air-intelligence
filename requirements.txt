@@ -1,5 +1,9 @@
+# Tested with Python 3.12, pandas 3.1.1, numpy 2.5.5, matplotlib 3.11.2, scikit-learn 1.9.1, xgboost 3.4.1
 pandas>=2.2
 numpy>=1.26
 matplotlib>=3.9
+scikit-learn>=1.4
+xgboost>=2.0
 requests>=2.31
 jupyter
+nbconvert
