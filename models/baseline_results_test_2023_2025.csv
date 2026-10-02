@@ -1,0 +1,9 @@
+,MAE,RMSE,R2,Skill vs persistence (MAE)
+Persistence (tomorrow = today),35.206,55.369,0.756,0.0
+Monthly climatology,48.297,73.309,0.572,-0.372
+Ridge [A],33.023,53.49,0.772,0.062
+Random Forest [A],31.802,51.567,0.788,0.097
+XGBoost [A],34.861,55.637,0.754,0.01
+Ridge [B],28.739,46.727,0.826,0.184
+Random Forest [B],28.553,44.523,0.842,0.189
+XGBoost [B],35.511,54.467,0.764,-0.009
