@@ -58,3 +58,16 @@ Daily PM2.5 is very persistent (lag-1 autocorrelation 0.87), so "tomorrow = toda
 - As an early-warning test, the model caught **93%** of "Very Unhealthy" days (> 150.4 µg/m³), against 89% for persistence.
 
 Important caveat: "tomorrow's weather" here comes from reanalysis (what actually happened), not a real forecast, so real-world performance will be lower. Testing with archived weather forecasts is my next step.
+
+## What I am *not* claiming
+
+- I am **not** claiming which source (traffic, kilns, crop burning, industry) is the biggest. Weather correlations cannot answer that. It needs emission inventories or chemical source-apportionment studies, which I summarise in the literature review. Even there, results differ depending on which pollutants are counted.
+- One monitor does not represent the whole city.
+- The forecast results are preliminary, from one train/test split.
+
+## Problems I ran into
+
+- The OpenAQ API now needs a key, and the US State Department download site was unreachable, so I found the same monitor data in OpenAQ's public S3 archive.
+- The consulate monitor has large gaps (most of summer 2022) and stops in early 2025.
+- The CAMS model gets the timing right (r = 0.82) but **underestimates Lahore's PM2.5 by about half** (mean ratio 0.54). The low-cost sensor tracks the monitor closely (r = 0.98) but reads about 25% low overall.
+- Boundary-layer height is missing in the weather archive for Jan–Jun 2024.
