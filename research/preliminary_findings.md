@@ -71,3 +71,9 @@ Important caveat: "tomorrow's weather" here comes from reanalysis (what actually
 - The consulate monitor has large gaps (most of summer 2022) and stops in early 2025.
 - The CAMS model gets the timing right (r = 0.82) but **underestimates Lahore's PM2.5 by about half** (mean ratio 0.54). The low-cost sensor tracks the monitor closely (r = 0.98) but reads about 25% low overall.
 - Boundary-layer height is missing in the weather archive for Jan–Jun 2024.
+
+## Next steps
+
+- **Week 2 — Machine learning:** walk-forward validation, tune XGBoost, use real archived weather *forecasts* as inputs, and try 2–3 day lead times. Calibrate the low-cost sensor and CAMS against the reference monitor so the record can continue after Feb 2025.
+- **Week 3 — Prototype:** a simple public dashboard showing recent PM2.5, the forecast for tomorrow, and a warning level.
+- **Week 4 — Write-up:** turn this into a short paper / preprint (e.g. on Zenodo, with a DOI) and share the code and data openly.
