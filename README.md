@@ -38,3 +38,38 @@ Full report: [`research/preliminary_findings.md`](research/preliminary_findings.
 | ![Boundary layer vs PM2.5](visualizations/fig06_boundary_layer_vs_pm25.png) | ![Forecast model comparison](visualizations/fig09_forecast_model_comparison.png) |
 
 > **Scope note:** this analysis shows *when* and *under what weather* pollution builds up. It does **not** identify which emission source is largest. That requires emission inventories or chemical source-apportionment studies (see the [literature review](research/literature_review.md)).
+
+## Project structure
+
+```
+lahore-air-intelligence/
+├── data/
+│   ├── raw/                     # downloaded source files (OpenAQ, Open-Meteo/ERA5, CAMS, NASA FIRMS)
+│   ├── processed/               # cleaned daily merged dataset + cleaned hourly PM2.5
+│   └── README.md                # sources, coverage, cleaning rules and caveats
+├── notebooks/
+│   ├── 01_exploratory_analysis.ipynb   # trends, seasons, hour-of-day, weather correlations, fires
+│   └── 02_baseline_forecast.ipynb      # persistence vs Ridge / Random Forest / XGBoost, next-day PM2.5
+├── src/
+│   ├── fetch_data.py            # downloads all raw data (no API keys needed)
+│   └── build_dataset.py         # cleaning + daily merge
+├── models/                      # model results (test-set metrics)
+├── visualizations/              # all figures (PNG)
+├── research/
+│   ├── literature_review.md     # causes of Lahore's smog, with sources
+│   └── preliminary_findings.md  # Week 1 progress report
+├── requirements.txt
+└── README.md
+```
+
+## Data
+
+| Source | Variable | Period | Type |
+|---|---|---|---|
+| US Consulate Lahore monitor (via [OpenAQ archive](https://openaq.org)) | PM2.5, hourly | May 2019 – Feb 2025 | Measured (reference) |
+| Clarity low-cost sensor (via OpenAQ) | PM2.5 | Nov 2023 – Aug 2026 | Measured (low-cost, uncalibrated) |
+| [CAMS](https://atmosphere.copernicus.eu/) via [Open-Meteo](https://open-meteo.com/en/docs/air-quality-api) | PM2.5, PM10, CO, NO2, dust | Aug 2022 – Nov 2026 | Modelled |
+| [ERA5](https://open-meteo.com/en/docs/historical-weather-api) via Open-Meteo | Temperature, humidity, wind, rain, pressure, boundary layer height | 2019 – Nov 2026 | Reanalysis |
+| [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) MODIS | Active fire detections, Punjab region | 2019 – 2025 | Satellite |
+
+Details and caveats: [`data/README.md`](data/README.md).
