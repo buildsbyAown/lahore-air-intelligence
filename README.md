@@ -73,3 +73,41 @@ lahore-air-intelligence/
 | [NASA FIRMS](https://firms.modaps.eosdis.nasa.gov/) MODIS | Active fire detections, Punjab region | 2019 – 2025 | Satellite |
 
 Details and caveats: [`data/README.md`](data/README.md).
+
+## How to reproduce
+
+```bash
+git clone https://github.com/<your-username>/lahore-air-intelligence.git
+cd lahore-air-intelligence
+python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python src/fetch_data.py        # optional: re-download raw data (raw files are already included)
+python src/build_dataset.py     # rebuild data/processed/
+jupyter nbconvert --to notebook --execute --inplace notebooks/01_exploratory_analysis.ipynb
+jupyter nbconvert --to notebook --execute --inplace notebooks/02_baseline_forecast.ipynb
+```
+
+## Roadmap
+
+- [x] **Week 1 — Foundations:** research question, literature review, data collection and cleaning, exploratory analysis, first baseline forecast.
+- [ ] **Week 2 — Machine learning:** walk-forward validation; tune XGBoost/LightGBM; use real archived *weather forecasts* as inputs; 1–3 day lead times; calibrate CAMS and low-cost sensor data against the reference monitor to extend the record past Feb 2025.
+- [ ] **Week 3 — Prototype:** a simple public dashboard (e.g. Streamlit) with recent PM2.5, tomorrow's forecast and a health-warning level.
+- [ ] **Week 4 — Write-up:** short research paper and preprint on Zenodo (with DOI); polished repository and demo.
+- [ ] **Later:** more monitoring locations (Punjab EPD, low-cost sensor networks), hotspot mapping, satellite data (Sentinel-5P, MODIS AOD), and working with people studying emission sources.
+
+## Progress log
+
+| Date | Work done |
+|---|---|
+| Nov 2026 | Defined research question and scope. Reviewed reports (IQAir, World Bank, AQLI, Urban Unit emission inventory, FAO R-SMOG) and peer-reviewed studies on Lahore PM2.5 sources, boundary layer and the Nov 2024 haze event. |
+| Nov 2026 | Found and downloaded open data: US Consulate PM2.5 (OpenAQ S3 archive, since the API needs a key), Clarity sensor, CAMS, ERA5 weather, NASA FIRMS fires. Wrote reproducible download script. |
+| Nov 2026 | Cleaned and merged data; documented QC rules (e.g. removed an implausible ~8 µg/m³ run in Feb 2020). |
+| Nov 2026 | Exploratory analysis: seasonal cycle, winter-to-winter comparison, hour-of-day vs boundary layer, weather correlations, fire overlay, data-source comparison. |
+| Nov 2026 | First forecast baselines (persistence, climatology, Ridge, Random Forest, XGBoost) with chronological train/test split. |
+| Nov 2026 | Wrote literature review and Week 1 findings report. |
+
+## Acknowledgements and licences
+
+Data: OpenAQ (US Department of State AirNow data; Clarity data CC0), Copernicus Atmosphere Monitoring Service and ECMWF ERA5 (via Open-Meteo, CC BY 4.0), NASA FIRMS (LANCE/MODIS). Please cite the original data providers if you re-use the data.
+
+Code in this repository is released under the MIT License (see `LICENSE`).
