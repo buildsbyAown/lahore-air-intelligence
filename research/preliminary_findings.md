@@ -1,7 +1,7 @@
 # Preliminary findings — Week 1 progress report
 
 **Project:** Lahore Air Intelligence — AI-Driven Analysis and Prediction of Air Pollution in Lahore, Pakistan
-**Author:** [Your Name], Lahore, Pakistan
+**Author:** Syed Aown Raza Naqvi, Lahore, Pakistan
 **Date:** November 2026
 **Status:** Independent research, early stage. Not peer reviewed.
 

@@ -2,7 +2,7 @@
 
 **AI-Driven Analysis and Prediction of Air Pollution in Lahore, Pakistan**
 
-*An independent research project by [Your Name], Lahore, Pakistan. Started November 2026.*
+*An independent research project by Syed Aown Raza Naqvi, Lahore, Pakistan. Started November 2026.*
 
 ![Daily PM2.5 in Lahore](visualizations/fig01_daily_pm25_timeseries.png)
 
