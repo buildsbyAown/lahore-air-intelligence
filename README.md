@@ -25,7 +25,7 @@ I live here. My long-term goal is to help Lahore **predict hazardous air before 
 
 Full report: [`research/preliminary_findings.md`](research/preliminary_findings.md)
 
-- Based on 1,456 valid days of measurements from the US Consulate monitor (2019–2025), **50% of days exceeded the WHO 24-hour guideline**, and **7% were "Hazardous"** (> 250 µg/m³). The worst day was **621 µg/m³ on 14 Nov 2024**.
+- Based on 1,456 valid days of measurements from the US Consulate monitor (2019–2025), **99.5% of days exceeded the WHO 24-hour guideline**, **75% were "Unhealthy" or worse**, and **14% were "Hazardous"** (> 250 µg/m³). The worst day was **621 µg/m³ on 14 Nov 2024**. An earlier draft said 50% and 7%; those figures counted days with no measurement as clean days.
 - **December and November average 268 and 254 µg/m³, compared with 46 in August** (5.8×).
 - Winter (Nov–Jan) averages have **not improved**: 212 µg/m³ in 2019–20, 269 in 2023–24 and 265 in 2024–25.
 - In winter, the boundary layer collapses to about **50 m at night**. PM2.5 peaks around midnight, and on days with a very shallow night-time layer it averages **191 µg/m³**, compared with under 50 when the layer is deeper than 200 m.
@@ -38,6 +38,8 @@ Full report: [`research/preliminary_findings.md`](research/preliminary_findings.
 | ![Boundary layer vs PM2.5](visualizations/fig06_boundary_layer_vs_pm25.png) | ![Forecast model comparison](visualizations/fig09_forecast_model_comparison.png) |
 
 > **Scope note:** this analysis shows *when* and *under what weather* pollution builds up. It does **not** identify which emission source is largest. That requires emission inventories or chemical source-apportionment studies (see the [literature review](research/literature_review.md)).
+
+The forecast to use for tomorrow's level is the **Random Forest** in `notebooks/02_baseline_forecast.ipynb`. Why that model, and what it cannot predict, is in [`research/model_assessment.md`](research/model_assessment.md). Options for reducing exposure and emissions — room air purifiers, exhaust filters, and controls on brick-kiln chimneys — are in [`research/mitigation_options.md`](research/mitigation_options.md). The forecast does not itself estimate the effect of those controls.
 
 ## Project structure
 
@@ -57,7 +59,9 @@ lahore-air-intelligence/
 ├── visualizations/              # all figures (PNG)
 ├── research/
 │   ├── literature_review.md     # causes of Lahore's smog, with sources
-│   └── preliminary_findings.md  # Week 1 progress report
+│   ├── preliminary_findings.md  # Week 1 progress report
+│   ├── model_assessment.md      # which forecast to use, and what it cannot predict
+│   └── mitigation_options.md    # purifiers, exhaust filters, kiln-stack controls
 ├── requirements.txt
 └── README.md
 ```
@@ -90,6 +94,7 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/02_baseline_foreca
 ## Roadmap
 
 - [x] **Week 1 — Foundations:** research question, literature review, data collection and cleaning, exploratory analysis, first baseline forecast.
+- [x] **Model check and controls:** confirmed which forecast to use for tomorrow's PM2.5, and wrote up room purifiers, exhaust filters and brick-kiln stack controls ([assessment](research/model_assessment.md), [mitigation note](research/mitigation_options.md)).
 - [ ] **Week 2 — Machine learning:** walk-forward validation; tune XGBoost/LightGBM; use real archived *weather forecasts* as inputs; 1–3 day lead times; calibrate CAMS and low-cost sensor data against the reference monitor to extend the record past Feb 2025.
 - [ ] **Week 3 — Prototype:** a simple public dashboard (e.g. Streamlit) with recent PM2.5, tomorrow's forecast and a health-warning level.
 - [ ] **Week 4 — Write-up:** short research paper and preprint on Zenodo (with DOI); polished repository and demo.
@@ -105,6 +110,7 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/02_baseline_foreca
 | Nov 2026 | Exploratory analysis: seasonal cycle, winter-to-winter comparison, hour-of-day vs boundary layer, weather correlations, fire overlay, data-source comparison. |
 | Nov 2026 | First forecast baselines (persistence, climatology, Ridge, Random Forest, XGBoost) with chronological train/test split. |
 | Nov 2026 | Wrote literature review and Week 1 findings report. |
+| Nov 2026 | Checked the forecast against the prediction question. Corrected the share of days above the WHO guideline (missing days had been counted as clean). Wrote up room purifiers, vehicle exhaust filters, and brick-kiln stack controls. |
 
 ## Acknowledgements and licences
 

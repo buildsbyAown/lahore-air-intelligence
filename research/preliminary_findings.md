@@ -32,7 +32,9 @@ My research question is:
 All numbers are from the US Consulate monitor unless stated otherwise.
 
 **1. The air is unhealthy most of the year and extreme in winter.**
-The average over all valid days was **132 µg/m³** (median 93). **50%** of days were above the WHO 24-hour guideline (15 µg/m³), **38%** were "Unhealthy" or worse on the US AQI scale (> 55.4 µg/m³), and **7%** were "Hazardous" (> 250.4 µg/m³). The worst day was **14 November 2024 at 621 µg/m³**, about 41 times the WHO 24-hour guideline. This matches the value reported for the same event in a 2026 *Scientific Reports* study, which gave me confidence the data pipeline is correct.
+The average over all valid days was **132 µg/m³** (median 93). Of those 1,456 days, **99.5%** were above the WHO 24-hour guideline (15 µg/m³), **75%** were "Unhealthy" or worse on the US AQI scale (> 55.4 µg/m³), **32%** were "Very Unhealthy" or worse (> 150.4 µg/m³), and **14%** were "Hazardous" (> 250.4 µg/m³). The worst day was **14 November 2024 at 621 µg/m³**, about 41 times the WHO 24-hour guideline. This matches the value reported for the same event in a 2026 *Scientific Reports* study, which gave me confidence the data pipeline is correct.
+
+An earlier draft of this report said 50%, 38% and 7%. That was a calculation error. The merged file is a complete daily calendar (2,876 rows), and the comparison treated a day with no measurement as a day below the threshold. Recomputed on the 1,456 days that actually have a measurement, the shares above are 99.5%, 74.7%, 31.9% and 14.2%. The notebook now drops missing days before the comparison.
 
 **2. There is a strong, repeatable seasonal cycle.**
 December (268 µg/m³) and November (254) are the worst months, and August (46) the cleanest — a **5.8× difference**. By season: winter Dec–Feb 223, post-monsoon Oct–Nov 188, spring 79, monsoon Jun–Sep 57 µg/m³.
@@ -71,6 +73,14 @@ Important caveat: "tomorrow's weather" here comes from reanalysis (what actually
 - The consulate monitor has large gaps (most of summer 2022) and stops in early 2025.
 - The CAMS model gets the timing right (r = 0.82) but **underestimates Lahore's PM2.5 by about half** (mean ratio 0.54). The low-cost sensor tracks the monitor closely (r = 0.98) but reads about 25% low overall.
 - Boundary-layer height is missing in the weather archive for Jan–Jun 2024.
+
+## Is this the model to use for the prediction?
+
+Yes, for tomorrow's concentration at this monitor. The model to keep is the **Random Forest** that predicts the day-to-day change in log PM2.5 (`notebooks/02_baseline_forecast.ipynb`). On the 2023–Feb 2025 test period it is the lowest-error model in both feature sets. Untuned XGBoost is tied with "tomorrow = today" at best, so it is not the forecast. Full reasoning, including what this model cannot say about later years or about new controls: [`model_assessment.md`](model_assessment.md).
+
+## What can reduce the smog?
+
+The forecast says how high tomorrow will be if the city keeps emitting as it does now. It does not estimate air purifiers, exhaust filters, or kiln controls. Those are a separate part of the study: [`mitigation_options.md`](mitigation_options.md). Short version: a HEPA purifier lowers PM2.5 in the room where it runs; a filter works on a vehicle exhaust or a kiln chimney because the gas is inside a duct; a purifier standing in the open city does not clean Lahore's air.
 
 ## Next steps
 
