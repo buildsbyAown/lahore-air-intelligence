@@ -36,3 +36,23 @@ Which of the two Random Forests to publish depends on what information exists at
 - **Random Forest [B] is the model to move to once a real weather forecast is wired in.** It is the most accurate run in the table (MAE 28.6 µg/m³, R² 0.84). The weather it was given, though, is ERA5 reanalysis: a reconstruction of the weather that *did* happen, including the change in night-time boundary-layer height from today to tomorrow. A forecast issued in advance will not know that change exactly, so 28.6 is an upper bound on skill, not the error a live system would have today.
 
 Untuned XGBoost is not the forecast. On observations only it is tied with "tomorrow = today" (MAE 34.9 against 35.2). When tomorrow's weather is added it is worse than that guess. With about 780 training days it needs a proper tuning pass before it can be reconsidered.
+
+## Why this formulation fits Lahore
+
+Daily PM2.5 at this monitor is very persistent (lag-1 autocorrelation 0.87). Any useful model has to beat "tomorrow = today". The Random Forest does, by a modest amount from observations alone and by more once tomorrow's ventilation is known.
+
+The models are trained on the *change* in the log of PM2.5, not on the level itself. Tree models cannot invent values outside the range they saw in training, and the November 2024 episode (621 µg/m³) was worse than the training years. Modelling the change, then applying it to today's measured value, lets the forecast move with the weather without pretending the tree has seen that extreme before.
+
+The input that matters most in feature set B is the change in night-time boundary-layer height. That matches the exploratory result: inside winter, a shallow night-time layer and weak wind are what separate a bad day from a very bad day. The model is picking up the physical "lid", not a spurious calendar effect. Monthly climatology, which only knows the month, is the worst predictor in the table.
+
+## As a warning, observations-only is enough
+
+On the test set, 216 days were "Very Unhealthy" or worse (PM2.5 > 150.4 µg/m³).
+
+| Rule | Days caught | Days missed | False alarms |
+|---|---:|---:|---:|
+| Tomorrow = today | 89% | 24 | 23 |
+| Random Forest [A] | 93% | 15 | 18 |
+| Random Forest [B] | 93% | 15 | 24 |
+
+For a yes/no health warning, Random Forest [A] catches the same share of bad days as [B] and raises fewer false alarms. It also does not depend on tomorrow's weather. For the *number* of micrograms, [B] is better. A dashboard can show the [A] warning now, and replace the concentration with [B] when a genuine weather forecast is available.
