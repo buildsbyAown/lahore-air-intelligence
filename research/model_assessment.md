@@ -56,3 +56,19 @@ On the test set, 216 days were "Very Unhealthy" or worse (PM2.5 > 150.4 µg/m³)
 | Random Forest [B] | 93% | 15 | 24 |
 
 For a yes/no health warning, Random Forest [A] catches the same share of bad days as [B] and raises fewer false alarms. It also does not depend on tomorrow's weather. For the *number* of micrograms, [B] is better. A dashboard can show the [A] warning now, and replace the concentration with [B] when a genuine weather forecast is available.
+
+## What this model is not
+
+- **It is a one-day forecast at one site.** The target is the next daily mean at the US Consulate monitor. It has not been tested at 2–3 days ahead, at another neighbourhood, or as a city-average.
+- **It assumes emissions stay in the range of 2019–2025.** A large, real change in traffic, kilns, burning, or fuel will shift the level, and the model will keep predicting the old regime until it is retrained on the new one.
+- **It has no lever for a purifier, an exhaust filter, or a kiln chimney.** Those devices do not appear in the feature list. Putting them into this Random Forest would be theatre. Their expected effect is discussed from the emissions literature in the mitigation note, and it is labelled as that, not as a model output.
+- **Feature set B is not yet an operational weather forecast.** Replacing reanalysis with archived forecast weather is the next modelling step, already on the roadmap. Until that test exists, the honest error bar for a live next-day level is the [A] result, about 32 µg/m³ MAE.
+- **One chronological split is a preliminary test.** Walk-forward validation is still to do. The ranking (Random Forest ahead of persistence, XGBoost not) is stable enough to choose a model. It is not a final uncertainty estimate.
+
+## Correction that does not change the model
+
+While checking the study I found a separate error in the written shares of unhealthy days. The first draft said 50% of days exceeded the WHO 24-hour guideline and 7% were hazardous. The code had averaged the comparison over the whole calendar, and a missing day counted as a clean day. On the 1,456 days with a real measurement the shares are **99.5%** above 15 µg/m³, **74.7%** above 55.4, **31.9%** above 150.4, and **14.2%** above 250.4. The forecast metrics above were always computed on days that have both today and tomorrow, so this bug did not enter the model scores. The notebook and the Week 1 report are corrected.
+
+## Decision
+
+Keep the Random Forest as the prediction model. Use feature set A for any number released before tomorrow's weather is known. Treat feature set B as the design target for the version that takes a real weather forecast. Leave XGBoost for a later tuning pass. Do not ask this model to estimate air purifiers, exhaust filters, or kiln controls.
