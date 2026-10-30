@@ -83,3 +83,47 @@ I am not converting 397 tonnes, or 53%, into a city-wide µg/m³ forecast. Secon
 - A **fabric filter (baghouse)** or an **electrostatic precipitator** is the device class that removes the large majority of particle *mass* from an industrial flue, including fine particles, in standard emissions practice. On a traditional Punjab kiln they need electricity, temperature control, ash handling and maintenance that the kiln often does not have. They are the honest "cleaner on the mouth" if the goal is the fine particles. They are a project, not a filter cloth.
 
 The Urban Unit counts about **230 brick kilns** in Lahore District and describes them as major coal users on the city's edge [13]. Its industry line for primary PM2.5 is only 29 tonnes, which sits awkwardly next to Stone and colleagues' coal-marker result [14]. I leave that conflict as a conflict. Kiln controls are justified because the kilns are a known, local, coal-burning source that can be rebuilt and measured at the stack. They are not justified by pretending the inventory has already proved they are the main source of the city's PM2.5.
+
+## 4. The other sources the same test points to
+
+Exhaust filters and kiln stacks leave two primary-PM lines in the Lahore inventory that are each about as large as transport: crop-residue burning and waste burning [13]. FAO's provincial inventory ranks transport, industry, then agriculture, and still treats the October–November burning peak as important because it is concentrated in a few weeks [20]. This project's fire series agrees with the seasonal part and refuses the "fires explain winter" part: October–November detections fell sharply after 2021 while winter PM2.5 did not. A control on stubble (machinery that lets farmers sow without burning, in the short window between rice and wheat) and a control on waste (collection, so it is not burned in the street) act at the source, which is where a cut in emissions actually changes outdoor concentrations. They belong in any programme that also funds filters and kilns. Otherwise the city can retrofit chimneys and still fill with smoke in November.
+
+## What I will not claim
+
+- I will not publish a single "% less smog in Lahore" for a package of purifiers, exhaust filters and kiln scrubbers. The forecast model cannot produce it, and the inventories do not include secondary particles or the regional share.
+- Room purifiers do not appear in the outdoor time series. Buying them will not make the consulate monitor fall.
+- A device helps only while it is operated. A zigzag kiln run off the design, a DPF removed because the fuel is wrong, and a school purifier with a clogged filter are all zero.
+
+## How the forecast and the controls fit together
+
+| Job | Tool in this study |
+|---|---|
+| Tomorrow's PM2.5 at the monitor, emissions unchanged | Random Forest [A] now; Random Forest [B] after a real weather forecast is tested |
+| When to close windows, cancel outdoor sport, and run room purifiers | The same forecast's Very Unhealthy flag (93% of those days caught in the test) |
+| Lower outdoor PM2.5 for the whole city | Emission cuts at the duct or at the fire: DPF and catalysts on a low-sulfur fuel, zigzag kilns that meet the stack standard, flue filters where the kiln can run them, and less open burning of residue and waste |
+| Outdoor purifiers and smog towers | Ruled out at city scale by the volume of air moving through the winter boundary layer |
+
+After a real, city-scale emission change, the Random Forest has to be retrained. It learned the emission level of 2019–2025. It will keep predicting that level until the new measurements are in the training data.
+
+## References
+
+1. Guttikunda, S., & Jawahar, P. (2020). Can we vacuum our air pollution problem using smog towers? *Atmosphere*, 11(9), 922. https://doi.org/10.3390/atmos11090922
+2. Delhi Pollution Control Committee, as reported by *The Indian Express* (9 November 2023), "Smog towers not solution to air pollution: DPCC to NGT." https://indianexpress.com/article/cities/delhi/smog-towers-not-solution-air-pollution-dpcc-ngt-9031142/
+3. Cheek, E., Guercio, V., Shrubsole, C., & Dimitroulopoulou, S. (2021). Portable air purification: Review of impacts on indoor air quality and health. *Science of the Total Environment*, 766, 142585. https://doi.org/10.1016/j.scitotenv.2020.142585
+4. Zhu, Y., Song, X., Wu, R., Fang, J., Liu, L., Wang, T., Liu, S., Xu, H., & Huang, W. (2021). A review on reducing indoor particulate matter concentrations from personal-level air filtration intervention under real-world exposure situations. *Indoor Air*. https://doi.org/10.1111/ina.12922
+5. US Environmental Protection Agency (2018). *Residential Air Cleaners: A Technical Summary*, 3rd edition. https://www.epa.gov/sites/default/files/2018-07/documents/residential_air_cleaners_-_a_technical_summary_3rd_edition.pdf
+6. Simona, S. C., Bartell, S. M., & Vieira, V. M. (2025). Classroom air quality in a randomized crossover trial with portable HEPA air cleaners. *Journal of Exposure Science & Environmental Epidemiology*. https://www.nature.com/articles/s41370-025-00743-9
+7. Resources for the Future. *The effect of air purifiers in schools* (working paper). https://www.rff.org/publications/working-papers/the-effect-of-air-purifiers-in-schools/
+8. Castoldi, L. (2020). An overview on the catalytic materials proposed for the simultaneous removal of NOx and soot. *Materials*, 13(16), 3551. https://doi.org/10.3390/ma13163551 — "A DPF can remove around 85% of the particulates from the exhaust."
+9. Dong, R., Zhang, Z., Ye, Y., Huang, H., & Cao, C. (2022). Review of particle filters for internal combustion engines. *Processes*, 10(5), 993. https://www.mdpi.com/2227-9717/10/5/993 — filtration efficiency of a DPF is usually higher than 95%, and DPFs can reduce more than 90% of diesel particles.
+10. Climate and Clean Air Coalition. *Guidance for Fuel Importing Countries.* Diesel particulate filters "can reduce PM2.5 emissions up to 99%" and "are only effective with low (<50 ppm) or ideally ultralow (<10 ppm) sulfur fuels." https://www.ccacoalition.org/sites/default/files/resources/Guidance%20for%20Fuel%20Importing%20Countries_small.pdf — see also Dallmann, T., Shao, Z., et al., ICCT (2020), *Diesel sulfur content impacts on Euro VI soot-free vehicles.* https://theicct.org/sites/default/files/publications/50-ppm-sulfur-impacts-04.2020.pdf
+11. *Dawn* (23 June 2020). "Govt orders all petrol, diesel imports be Euro-V compliant as oil companies protest move." Diesel imports to conform to Euro-V from 1 January 2021; sulfur not more than 10 ppm; local refineries could not produce that grade. https://www.dawn.com/news/1567870
+12. Pakistan State Oil (31 December 2020). Launch of Euro 5 high-speed diesel; sulfur described as reduced from 500 ppm to 10 ppm. https://www.psopk.com/en/media/press-releases/another-first-by-pso-launch-of-euro-5-standard-diesel-in-pakistan
+13. The Urban Unit, Planning & Development Board, Government of Punjab (2023). *Sectoral Emission Inventory of Lahore.* https://urbanunit.gov.pk/Download/publications/Files/8/2023/Emission%20Inventory%20of%20Lahore%202023.pdf
+14. Stone, E., Schauer, J., Quraishi, T. A., & Mahmood, A. (2010). Chemical characterization and source apportionment of fine and coarse particulate matter in Lahore, Pakistan. *Atmospheric Environment*, 44(8), 1062–1070. https://doi.org/10.1016/j.atmosenv.2009.12.015
+15. World Bank (2022). *Striving for Clean Air: Air Pollution and Public Health in South Asia.* https://www.worldbank.org/en/region/sar/publication/striving-for-clean-air
+16. Bashir, Z., Amjad, M., Raza, S. F., Ahmad, S., Abdollahian, M., & Farooq, M. (2023). Investigating the impact of shifting the brick kiln industry from conventional to zigzag technology for a sustainable environment. *Sustainability*, 15(10), 8291. https://doi.org/10.3390/su15108291
+17. Sheikh, I. H., Naz, N., Nadeem, M., Hussain, F., Alam, M. F., Haider, R., & Javed, T. (2024). Comparison of emissions from different brick kiln technologies in Punjab, Pakistan. *Pakistan Journal of Science*, 76(3), 363–371. https://doi.org/10.57041/vol76iss03pp363-371
+18. Punjab EPA enforcement estimate of brick-sector emissions after zigzag adoption: "Impact of EPA enforcement activities on emission reduction of brick kilns in Punjab." *Pakistan Journal of Science*. https://pjosr.com/index.php/pjs/article/view/1319 — sector inventory calculation, 29.32% lower particulate matter and 16.08% lower greenhouse gases from 2019 to December 2024, not a measurement of ambient PM2.5 in Lahore.
+19. Field measurements of a centrifugal spray scrubber on a 3 MW biomass boiler: near-complete removal above 1 µm, 26–36% for submicron particles. Kyushu University record of the study: https://kyushu-u.elsevierpure.com/en/publications/field-measurements-and-stochastic-modeling-of-particle-removal-in/
+20. FAO. *Remote sensing for space-time mapping of smog in Punjab and identification of the underlying causes using GIS (R-SMOG).* https://openknowledge.fao.org/server/api/core/bitstreams/ede8e081-5a05-4722-86e7-359e4be3dd6b/content
