@@ -59,6 +59,7 @@ This is the part of the problem my own data analysis focuses on.
 2. The literature strongly suggests that **meteorology (boundary layer height, wind, stagnation) decides how bad a given day gets**, while emissions from traffic, kilns, industry, crop and waste burning provide the pollution. My first analysis tests the meteorology part with real data.
 3. **Data is a real limitation**: one reference monitor, a few low-cost sensors, and models that underestimate Lahore. Calibrating low-cost sensors and modelled data is a useful CS/ML contribution in itself.
 4. Headline numbers like "83% transport" need careful reading: they depend on which pollutants are counted.
+5. **Controls are a separate question from the forecast.** A companion note, [`mitigation_options.md`](mitigation_options.md), goes through three ideas that come up in Lahore: room air purifiers, cleaners on vehicle exhausts, and cleaners at brick-kiln mouths. Filtration reduces particles where the air is enclosed (a room, a tailpipe, a chimney). It does not vacuum the outdoor air of the city. The next-day model predicts concentrations under today's emissions; it is not an estimate of those controls.
 
 ---
 
