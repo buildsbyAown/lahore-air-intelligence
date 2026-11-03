@@ -1,0 +1,35 @@
+kind,scenario,warning,hours_in_treated_room,indoor_reduction,result_pct,unit
+personal exposure,"School day, published classroom result (~32%)",perfect hindsight,6,0.32,5.0,percent of summed daily PM2.5 on measured days
+personal exposure,"School day, published classroom result (~32%)",Random Forest [A],6,0.32,4.7,percent of summed daily PM2.5 on measured days
+personal exposure,"School day, published classroom result (~32%)",persistence,6,0.32,4.4,percent of summed daily PM2.5 on measured days
+personal exposure,"School day, round 40% indoor cut",perfect hindsight,6,0.4,6.3,percent of summed daily PM2.5 on measured days
+personal exposure,"School day, round 40% indoor cut",Random Forest [A],6,0.4,5.8,percent of summed daily PM2.5 on measured days
+personal exposure,"School day, round 40% indoor cut",persistence,6,0.4,5.6,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, weak purifier (30%)",perfect hindsight,12,0.3,9.4,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, weak purifier (30%)",Random Forest [A],12,0.3,8.7,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, weak purifier (30%)",persistence,12,0.3,8.3,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, typical purifier (50%)",perfect hindsight,12,0.5,15.6,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, typical purifier (50%)",Random Forest [A],12,0.5,14.6,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, typical purifier (50%)",persistence,12,0.5,13.9,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, strong purifier (70%)",perfect hindsight,12,0.7,21.9,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, strong purifier (70%)",Random Forest [A],12,0.7,20.4,percent of summed daily PM2.5 on measured days
+personal exposure,"Home, 12 hours, strong purifier (70%)",persistence,12,0.7,19.5,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, weak purifier (30%)",perfect hindsight,18,0.3,14.1,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, weak purifier (30%)",Random Forest [A],18,0.3,13.1,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, weak purifier (30%)",persistence,18,0.3,12.5,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, typical purifier (50%)",perfect hindsight,18,0.5,23.5,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, typical purifier (50%)",Random Forest [A],18,0.5,21.8,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, typical purifier (50%)",persistence,18,0.5,20.8,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, strong purifier (70%)",perfect hindsight,18,0.7,32.8,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, strong purifier (70%)",Random Forest [A],18,0.7,30.6,percent of summed daily PM2.5 on measured days
+personal exposure,"Home and school, 18 hours, strong purifier (70%)",persistence,18,0.7,29.2,percent of summed daily PM2.5 on measured days
+source machinery,"Diesel particulate filter, at that engine",,,,90,percent of that engine's particulate matter
+source machinery,"Zigzag kiln vs fixed-chimney Bull's trench, at that kiln",,,,35,percent of that kiln's PM2.5
+source machinery,Zigzag applied to the inventory's whole industry line (29 t),,,,0.91,percent of inventory primary PM2.5
+source machinery,DPF at 90% on 40% of transport primary PM2.5,,,,12.8,percent of inventory primary PM2.5
+source machinery,DPF at 90% on 60% of transport primary PM2.5,,,,19.2,percent of inventory primary PM2.5
+source machinery,DPF at 90% on 80% of transport primary PM2.5,,,,25.6,percent of inventory primary PM2.5
+source machinery,Remove the entire 'transport' primary-PM2.5 line,,,,35.5,"percent of inventory primary PM2.5, a ceiling if that source stopped"
+source machinery,Remove the entire 'crop-residue burning' primary-PM2.5 line,,,,33.2,"percent of inventory primary PM2.5, a ceiling if that source stopped"
+source machinery,Remove the entire 'waste burning' primary-PM2.5 line,,,,28.6,"percent of inventory primary PM2.5, a ceiling if that source stopped"
+source machinery,Remove the entire 'industry' primary-PM2.5 line,,,,2.6,"percent of inventory primary PM2.5, a ceiling if that source stopped"

@@ -84,6 +84,35 @@ def main():
                 "unit": "percent of summed daily PM2.5 on measured days",
             })
 
+    # Device-level and inventory-level source controls. Not additive with the rows above.
+    source_rows = [
+        ("Diesel particulate filter, at that engine", 90, "percent of that engine's particulate matter"),
+        ("Zigzag kiln vs fixed-chimney Bull's trench, at that kiln", 35, "percent of that kiln's PM2.5"),
+        ("Zigzag applied to the inventory's whole industry line (29 t)", round(100 * 0.35 * 29 / primary_total, 2), "percent of inventory primary PM2.5"),
+    ]
+    for diesel_share in (0.40, 0.60, 0.80):
+        tonnes = 0.90 * diesel_share * PRIMARY_PM25_T["transport"]
+        source_rows.append((
+            f"DPF at 90% on {int(diesel_share * 100)}% of transport primary PM2.5",
+            round(100 * tonnes / primary_total, 1),
+            "percent of inventory primary PM2.5",
+        ))
+    for name, tonnes in PRIMARY_PM25_T.items():
+        source_rows.append((
+            f"Remove the entire '{name}' primary-PM2.5 line",
+            round(100 * tonnes / primary_total, 1),
+            "percent of inventory primary PM2.5, a ceiling if that source stopped",
+        ))
+    for label, result, unit in source_rows:
+        rows.append({
+            "kind": "source machinery",
+            "scenario": label,
+            "warning": "",
+            "hours_in_treated_room": "",
+            "indoor_reduction": "",
+            "result_pct": result,
+            "unit": unit,
+        })
 
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", newline="") as f:
@@ -95,6 +124,16 @@ def main():
     print(f"measured days: {len(values)}")
     print(f"mean PM2.5: {mean:.1f} µg/m³")
     print(f"days above {VERY_UNHEALTHY}: {len(bad)} ({100 * len(bad) / len(values):.1f}%)")
+    print(f"share of summed PM2.5 on those days: {100 * sum(bad) / total:.1f}%")
+    print(f"primary PM2.5 in the inventory: {primary_total:.0f} t")
+    central = exposure_reduction(values, 18, 0.50, RECALL["Random Forest [A]"])
+    # Scale only as an illustration: apply the exposure cut to the IQAir annual mean.
+    new_annual = IQAIR_ANNUAL_2024 * (1 - central)
+    gap_closed = (IQAIR_ANNUAL_2024 - new_annual) / (IQAIR_ANNUAL_2024 - WHO_ANNUAL)
+    print(f"central exposure cut (18 h, 50%, Random Forest): {100 * central:.1f}%")
+    print(f"if that percent applied to the 2024 annual mean of {IQAIR_ANNUAL_2024}: {new_annual:.1f} µg/m³")
+    print(f"share of the gap from {IQAIR_ANNUAL_2024} down to {WHO_ANNUAL}: {100 * gap_closed:.1f}%")
+    print(f"proportional slice of the {AQLI_YEARS}-year AQLI figure: {AQLI_YEARS * gap_closed:.2f} years")
     print(f"wrote {OUT}")
 
 
