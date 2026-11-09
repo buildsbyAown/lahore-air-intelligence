@@ -72,3 +72,16 @@ The inventory does not say how much of the 397 transport tonnes is diesel, so 13
 A machine that lets farmers sow wheat without burning the rice residue is what makes the 33% ceiling available. This project has no field trial of that machine, so 33% is the inventory line, not a measured adoption rate. The same is true of waste burning: the ceiling is the end of the source, not a filter efficiency.
 
 Outdoor concentration would move by less than these primary-PM shares. The inventory misses particles formed in the air from gases, and it misses pollution blown in from outside the district. The World Bank's South Asia assessment finds that less than half of the pollution in the region's major cities is produced inside the city. So a diesel-filter programme that removed 19% of in-district primary PM2.5 (the middle of the 13–26% range) would cut the outdoor concentration by less than 19%, and by less than about 10% if under half of the city's PM2.5 is produced locally and the cut passed through one-for-one. It will not pass through one-for-one. This is a ceiling, not a forecast.
+
+## Life expectancy, only as a scale
+
+The Air Quality Life Index estimates **5.8 years** of life expectancy in Lahore if outdoor PM2.5 met the WHO guideline. That estimate is about outdoor air, not about a purifier in a bedroom.
+
+If the 22% exposure cut applied to IQAir's 2024 annual mean of 102.1 µg/m³, the personal annual figure would be about 80 µg/m³. The gap from 102.1 down to the WHO annual guideline of 5 µg/m³ would be 23% closed. A proportional slice of 5.8 years is **about 1.3 years**. This is a scale check so the 22% can be read against the health loss already cited in the project. It is not a new AQLI result, and it should not be quoted as one.
+
+## What this does not say
+
+- It does not say Lahore's outdoor air falls 22%. Room purifiers do not change the consulate time series.
+- It does not add the room percentage to the exhaust percentage. One is air a person breathes; the other is tonnes in an inventory.
+- It does not say a smog tower or an outdoor purifier removes a useful share of the city's air. That calculation is in the mitigation note: one large tower treats about 0.003% of the air moving through the winter city.
+- It does not survive a purifier that is off, a filter that was removed, or a kiln that was relabelled zigzag and not rebuilt.

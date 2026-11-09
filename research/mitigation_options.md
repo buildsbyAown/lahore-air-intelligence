@@ -90,7 +90,7 @@ Exhaust filters and kiln stacks leave two primary-PM lines in the Lahore invento
 
 ## What I will not claim
 
-- I will not publish a single "% less smog in Lahore" for a package of purifiers, exhaust filters and kiln scrubbers. The forecast model cannot produce it, and the inventories do not include secondary particles or the regional share.
+- I will not publish a single "% less outdoor smog in Lahore" that adds purifiers, exhaust filters and kiln scrubbers together. Personal-exposure scenarios and inventory shares are calculated separately in [`technology_risk_reduction.md`](technology_risk_reduction.md). The forecast model cannot produce a city-concentration scenario, and the inventories do not include secondary particles or the regional share.
 - Room purifiers do not appear in the outdoor time series. Buying them will not make the consulate monitor fall.
 - A device helps only while it is operated. A zigzag kiln run off the design, a DPF removed because the fuel is wrong, and a school purifier with a clogged filter are all zero.
 
