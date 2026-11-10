@@ -31,6 +31,7 @@ Full report: [`research/preliminary_findings.md`](research/preliminary_findings.
 - In winter, the boundary layer collapses to about **50 m at night**. PM2.5 peaks around midnight, and on days with a very shallow night-time layer it averages **191 µg/m³**, compared with under 50 when the layer is deeper than 200 m.
 - **Within winter**, the days that turn out worst are separated by low wind and a shallow boundary layer, not by temperature.
 - A first **Random Forest** next-day forecast beats the "tomorrow = today" baseline by **10%** using past data only, and by **19%** (R² 0.84) when it is also given the next day's weather.
+- Room purifiers switched on by that forecast can cut about **22%** of a person's cumulative PM2.5 exposure (range **13–31%**) if they spend 18 hours of each Very Unhealthy day in a room where the machine removes about half the particles. That does not lower the outdoor reading. At the source, a diesel particulate filter removes about **90%** of that engine's particles, and a zigzag kiln about **35%** of that kiln's PM2.5. Numbers and assumptions: [`research/technology_risk_reduction.md`](research/technology_risk_reduction.md).
 
 | | |
 |---|---|
@@ -39,7 +40,7 @@ Full report: [`research/preliminary_findings.md`](research/preliminary_findings.
 
 > **Scope note:** this analysis shows *when* and *under what weather* pollution builds up. It does **not** identify which emission source is largest. That requires emission inventories or chemical source-apportionment studies (see the [literature review](research/literature_review.md)).
 
-The forecast to use for tomorrow's level is the **Random Forest** in `notebooks/02_baseline_forecast.ipynb`. Why that model, and what it cannot predict, is in [`research/model_assessment.md`](research/model_assessment.md). Options for reducing exposure and emissions — room air purifiers, exhaust filters, and controls on brick-kiln chimneys — are in [`research/mitigation_options.md`](research/mitigation_options.md). The forecast does not itself estimate the effect of those controls.
+The forecast to use for tomorrow's level is the **Random Forest** in `notebooks/02_baseline_forecast.ipynb`. Why that model, and what it cannot predict, is in [`research/model_assessment.md`](research/model_assessment.md). Which machines can help, and the assumptions behind them, are in [`research/mitigation_options.md`](research/mitigation_options.md). How large a share of exposure or emissions those machines can cut is in [`research/technology_risk_reduction.md`](research/technology_risk_reduction.md).
 
 ## Project structure
 
@@ -54,14 +55,16 @@ lahore-air-intelligence/
 │   └── 02_baseline_forecast.ipynb      # persistence vs Ridge / Random Forest / XGBoost, next-day PM2.5
 ├── src/
 │   ├── fetch_data.py            # downloads all raw data (no API keys needed)
-│   └── build_dataset.py         # cleaning + daily merge
-├── models/                      # model results (test-set metrics)
+│   ├── build_dataset.py         # cleaning + daily merge
+│   └── mitigation_scenarios.py  # exposure and inventory cuts from the monitor record
+├── models/                      # forecast metrics and the technology-risk table
 ├── visualizations/              # all figures (PNG)
 ├── research/
 │   ├── literature_review.md     # causes of Lahore's smog, with sources
 │   ├── preliminary_findings.md  # Week 1 progress report
 │   ├── model_assessment.md      # which forecast to use, and what it cannot predict
-│   └── mitigation_options.md    # purifiers, exhaust filters, kiln-stack controls
+│   ├── mitigation_options.md    # purifiers, exhaust filters, kiln-stack controls
+│   └── technology_risk_reduction.md  # how much exposure or emissions those measures can cut
 ├── requirements.txt
 └── README.md
 ```
@@ -87,6 +90,7 @@ python -m venv .venv && source .venv/bin/activate     # Windows: .venv\Scripts\a
 pip install -r requirements.txt
 python src/fetch_data.py        # optional: re-download raw data (raw files are already included)
 python src/build_dataset.py     # rebuild data/processed/
+python src/mitigation_scenarios.py   # rebuild models/technology_risk_reduction.csv
 jupyter nbconvert --to notebook --execute --inplace notebooks/01_exploratory_analysis.ipynb
 jupyter nbconvert --to notebook --execute --inplace notebooks/02_baseline_forecast.ipynb
 ```
@@ -111,6 +115,7 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/02_baseline_foreca
 | Nov 2026 | First forecast baselines (persistence, climatology, Ridge, Random Forest, XGBoost) with chronological train/test split. |
 | Nov 2026 | Wrote literature review and Week 1 findings report. |
 | Nov 2026 | Checked the forecast against the prediction question. Corrected the share of days above the WHO guideline (missing days had been counted as clean). Wrote up room purifiers, vehicle exhaust filters, and brick-kiln stack controls. |
+| Nov 2026 | Quantified how much of measured PM2.5 exposure room purifiers can cut when the forecast switches them on, and how large a share of primary emissions exhaust filters and kiln changes can reach. |
 
 ## Acknowledgements and licences
 

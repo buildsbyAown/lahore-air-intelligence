@@ -80,7 +80,9 @@ Yes, for tomorrow's concentration at this monitor. The model to keep is the **Ra
 
 ## What can reduce the smog?
 
-The forecast says how high tomorrow will be if the city keeps emitting as it does now. It does not estimate air purifiers, exhaust filters, or kiln controls. Those are a separate part of the study: [`mitigation_options.md`](mitigation_options.md). Short version: a HEPA purifier lowers PM2.5 in the room where it runs; a filter works on a vehicle exhaust or a kiln chimney because the gas is inside a duct; a purifier standing in the open city does not clean Lahore's air.
+The forecast says how high tomorrow will be if the city keeps emitting as it does now. The machines that can lower the risk, and the physical setting each one needs, are in [`mitigation_options.md`](mitigation_options.md). The size of the cut is in [`technology_risk_reduction.md`](technology_risk_reduction.md).
+
+Short version, using the consulate record: if a person spends 18 hours of each Very Unhealthy day in a room where a purifier removes half the particles, and the Random Forest switches those machines on, about **22%** of their cumulative PM2.5 exposure goes away (about **13–31%** if the purifier removes 30% or 70% instead). The outdoor air is unchanged. The forecast itself adds about **1 percentage point** over the simpler rule "tomorrow = today"; the rest of the 22% is the purifier. At the source, a diesel particulate filter removes about **90%** of that engine's particles, and a zigzag kiln about **35%** of that kiln's PM2.5. Those source cuts are shares of an emissions inventory, not a 22% drop in the city monitor.
 
 ## Next steps
 
