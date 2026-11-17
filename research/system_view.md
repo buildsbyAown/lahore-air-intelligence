@@ -52,3 +52,14 @@ Each machine acts at a different point. Putting them in one "technology" bucket 
 Environmental effect and social effect are not the same cut. The 22% protects people who have a machine and spend the smog hours indoors. People in the street, and people in rooms with no purifier, keep the outdoor concentration. A kiln or an exhaust change is slower and smaller in the city monitor, and it is the change that does not depend on who can buy a purifier. A sustainable design has to count both: the fast protection of exposure, and the slower cut in emissions. It also has to count cost and whether the device stays in service. A filter removed because the fuel is wrong, or a kiln renamed zigzag and not rebuilt, contributes nothing.
 
 I am not claiming a single life-cycle assessment. The zigzag study already compares energy, PM2.5 and CO₂ for two kiln designs. I have not done that for purifiers or for a vehicle fleet. The numbers above are exposure shares and inventory shares, calculated in `src/mitigation_scenarios.py`.
+
+## What a fuller engineering treatment would add
+
+The present system stops at a one-day forecast for one monitor and a set of technology bounds. The natural next engineering steps, still on the original problem, are:
+
+- **Better prediction under uncertainty.** Walk-forward testing, and real weather forecasts instead of reanalysis, so the warning can be issued before the day arrives.
+- **More sensors, with fault detection.** Calibrate the low-cost sensor and CAMS against the reference monitor, and flag a failing sensor the way the February 2020 run was flagged.
+- **A decision rule with a cost.** The current rule is "act above 150.4 µg/m³." A next step is to weigh a missed bad day against a false alarm, instead of treating every microgram of error as equal.
+- **A process model of one machine.** The kiln is the clearest candidate: firing path, draught and stack control, with emissions measured at the chimney rather than inferred from the city monitor.
+
+Those steps stay inside this project. They are how a forecast and a set of machines become a system that can be operated, not only described.

@@ -84,6 +84,8 @@ The forecast says how high tomorrow will be if the city keeps emitting as it doe
 
 Short version, using the consulate record: if a person spends 18 hours of each Very Unhealthy day in a room where a purifier removes half the particles, and the Random Forest switches those machines on, about **22%** of their cumulative PM2.5 exposure goes away (about **13–31%** if the purifier removes 30% or 70% instead). The outdoor air is unchanged. The forecast itself adds about **1 percentage point** over the simpler rule "tomorrow = today"; the rest of the 22% is the purifier. At the source, a diesel particulate filter removes about **90%** of that engine's particles, and a zigzag kiln about **35%** of that kiln's PM2.5. Those source cuts are shares of an emissions inventory, not a 22% drop in the city monitor.
 
+Read as one system — sensors, weather, forecast, then a machine at the room, the tailpipe or the kiln — the same material is in [`system_view.md`](system_view.md). The forecast is the signal that decides when to act. It does not itself remove the pollution.
+
 ## Next steps
 
 - **Week 2 — Machine learning:** walk-forward validation, tune XGBoost, use real archived weather *forecasts* as inputs, and try 2–3 day lead times. Calibrate the low-cost sensor and CAMS against the reference monitor so the record can continue after Feb 2025.

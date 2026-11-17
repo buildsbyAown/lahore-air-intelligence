@@ -10,7 +10,7 @@
 
 Lahore is regularly ranked among the most polluted cities on Earth. In 2024 its annual average PM2.5 was 102 µg/m³, about 20 times the WHO guideline ([IQAir](https://www.iqair.com/newsroom/5-most-polluted-major-cities-in-world-2024)), and the Air Quality Life Index estimates that clean air would add **5.8 years** to the life expectancy of people in Lahore ([AQLI](https://aqli.epic.uchicago.edu/files/Pakistan%20FactSheet_2025.pdf)). Every winter the city fills with smog that comes from many sources — vehicles, brick kilns and industry, crop-residue and waste burning, and pollution carried in from the wider region — and is trapped by cold, still air under a temperature inversion.
 
-I live here. My long-term goal is to help Lahore **predict hazardous air before it happens** and give people and decision-makers better information to act on, using data science and machine learning.
+I live here. My long-term goal is to help Lahore **predict hazardous air before it happens** and give people and decision-makers better information to act on, using data science and machine learning. The practical shape of that goal is a small system: monitor the air, predict the next day, and switch on the machines that can actually cut exposure or emissions. That chain is written up in [`research/system_view.md`](research/system_view.md).
 
 ## Research question
 
@@ -40,7 +40,7 @@ Full report: [`research/preliminary_findings.md`](research/preliminary_findings.
 
 > **Scope note:** this analysis shows *when* and *under what weather* pollution builds up. It does **not** identify which emission source is largest. That requires emission inventories or chemical source-apportionment studies (see the [literature review](research/literature_review.md)).
 
-The forecast to use for tomorrow's level is the **Random Forest** in `notebooks/02_baseline_forecast.ipynb`. Why that model, and what it cannot predict, is in [`research/model_assessment.md`](research/model_assessment.md). Which machines can help, and the assumptions behind them, are in [`research/mitigation_options.md`](research/mitigation_options.md). How large a share of exposure or emissions those machines can cut is in [`research/technology_risk_reduction.md`](research/technology_risk_reduction.md).
+The forecast to use for tomorrow's level is the **Random Forest** in `notebooks/02_baseline_forecast.ipynb`. Why that model, and what it cannot predict, is in [`research/model_assessment.md`](research/model_assessment.md). Which machines can help, and the assumptions behind them, are in [`research/mitigation_options.md`](research/mitigation_options.md). How large a share of exposure or emissions those machines can cut is in [`research/technology_risk_reduction.md`](research/technology_risk_reduction.md). How the monitor, the forecast and the machines fit together as one system is in [`research/system_view.md`](research/system_view.md).
 
 ## Project structure
 
@@ -64,7 +64,8 @@ lahore-air-intelligence/
 │   ├── preliminary_findings.md  # Week 1 progress report
 │   ├── model_assessment.md      # which forecast to use, and what it cannot predict
 │   ├── mitigation_options.md    # purifiers, exhaust filters, kiln-stack controls
-│   └── technology_risk_reduction.md  # how much exposure or emissions those measures can cut
+│   ├── technology_risk_reduction.md  # how much exposure or emissions those measures can cut
+│   └── system_view.md           # monitor, predict, then intervene: the pieces as one system
 ├── requirements.txt
 └── README.md
 ```
@@ -116,6 +117,7 @@ jupyter nbconvert --to notebook --execute --inplace notebooks/02_baseline_foreca
 | Nov 2026 | Wrote literature review and Week 1 findings report. |
 | Nov 2026 | Checked the forecast against the prediction question. Corrected the share of days above the WHO guideline (missing days had been counted as clean). Wrote up room purifiers, vehicle exhaust filters, and brick-kiln stack controls. |
 | Nov 2026 | Quantified how much of measured PM2.5 exposure room purifiers can cut when the forecast switches them on, and how large a share of primary emissions exhaust filters and kiln changes can reach. |
+| Nov 2026 | Wrote the monitor–forecast–machine chain as one system: where each technology acts, and what the forecast is allowed to decide. |
 
 ## Acknowledgements and licences
 
